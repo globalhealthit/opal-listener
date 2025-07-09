@@ -75,3 +75,19 @@ async function launch() {
 
     legacyServer.spawnCronJobs();
 }
+
+const express = require('express');
+const httpApp = express();
+
+httpApp.get('/', (_req, res) => {
+    res.send('Opal Listener is running');
+});
+
+httpApp.get('/health', (_req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
+
+const PORT = process.env.PORT || 3000;
+httpApp.listen(PORT, () => {
+    legacyLogger.log('info', `HTTP server listening on port ${PORT}`);
+});

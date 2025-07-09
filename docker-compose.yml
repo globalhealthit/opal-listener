@@ -12,6 +12,8 @@ services:
         - NODE_ENV=dev
     environment:
       - TZ=EST5EDT
+    expose:
+      - "3000"
     env_file:
       - .env
     volumes:
@@ -20,3 +22,23 @@ services:
       - ./legacy-registration:/app/legacy-registration
       - ./src:/app/src
     command: npm run watch:docker
+  
+  nginx:
+    env_file:
+      - .env
+    container_name: nginx
+    build:
+      context: ./nginx
+      args:
+        NGINX_CONF: nginx_ec2.conf
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/www/.well-known/acme-challenge:/var/www/.well-known/acme-challenge
+      - /etc/letsencrypt/live/opallistener.shoprideon.com/fullchain.pem:/etc/ssl/certs/fullchain.pem
+      - /etc/letsencrypt/live/opallistener.shoprideon.com/privkey.pem:/etc/ssl/private/privkey.pem
+    depends_on:
+      - app
