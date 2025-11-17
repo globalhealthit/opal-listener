@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -6,15 +5,15 @@
 /**
  * @file Listen and handle request uploaded to firebase by the app
  */
-const ApiRequest = require('./api-request');
-const Encryption = require('../encryption/encryption');
-const ErrorHandler = require('../error/handler');
-const { Firebase } = require('../firebase/firebase');
-const keyDerivationCache = require('../utility/key-derivation-cache');
-const legacyLogger = require('../../listener/logs/logger');
-const Registration = require('../registration/registration');
-const { REQUEST_TYPE, REGISTER_SEARCH_REQUEST_REGEX } = require('../const');
-const { RequestContext } = require('./request-context');
+import { REGISTER_SEARCH_REQUEST_REGEX, REQUEST_TYPE } from '../const.js';
+import ApiRequest from './api-request.js';
+import Encryption from '../encryption/encryption.js';
+import ErrorHandler from '../error/handler.js';
+import Firebase from '../firebase/firebase.js';
+import keyDerivationCache from '../utility/key-derivation-cache.js';
+import legacyLogger from '../../listener/logs/logger.js';
+import Registration from '../registration/registration.js';
+import RequestContext from './request-context.js';
 
 class RequestHandler {
     /**
@@ -101,7 +100,12 @@ class RequestHandler {
                 // Make sure that encrypt is false if we didn't encrypt, to give the right info to the frontend
                 finalResponse.encrypt = false;
             }
-            await this.sendResponse(finalResponse, snapshot.key, encryptionInfo?.userId, requestType);
+            await this.sendResponse(
+                finalResponse,
+                snapshot.key,
+                encryptionInfo?.userId || context?.userId,
+                requestType,
+            );
         }
 
         this.clearRequest(requestType, snapshot.key);
@@ -159,4 +163,4 @@ class RequestHandler {
     }
 }
 
-exports.RequestHandler = RequestHandler;
+export default RequestHandler;

@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -7,11 +6,10 @@
  * @file Unit tests for the Firebase class.
  */
 
-require('../test/chai-setup');
-const { expect } = require('chai');
-
-const { Firebase } = require('./firebase');
-const { ValidationError } = require('../utility/param-validator-error');
+import '../test/chai-setup.js';
+import { expect } from 'chai';
+import Firebase from './firebase.js';
+import ValidationError from '../utility/param-validator-error.js';
 
 describe('Firebase', function () {
     describe('#init()', function () {

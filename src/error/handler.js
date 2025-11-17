@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -6,8 +5,8 @@
 /**
  * @file Gracefully handle error either coming from an api call or inside the listener.
  */
-const legacyLogger = require('../../listener/logs/logger');
-const { ERRORS } = require('./const');
+import ERRORS from './const.js';
+import legacyLogger from '../../listener/logs/logger.js';
 
 class ErrorHandler {
     /**
@@ -40,4 +39,4 @@ class ErrorHandler {
     }
 }
 
-module.exports = ErrorHandler;
+export default ErrorHandler;

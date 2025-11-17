@@ -1,13 +1,10 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-/* eslint-disable no-new */
-/* eslint-disable consistent-return */
-require('../test/chai-setup');
-const { expect } = require('chai');
-const { RequestHandler } = require('./request-handler');
+import '../test/chai-setup.js';
+import { expect } from 'chai';
+import RequestHandler from './request-handler.js';
 
 describe('Request Handler', function () {
     describe('processRequest()', function () {

@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -7,12 +6,11 @@
  * @file Unit tests for the Registration class.
  */
 
-require('../test/chai-setup');
-const { expect } = require('chai');
-
-const EncryptionUtilities = require('../encryption/encryption');
-const Registration = require('./registration');
-const { RequestContext } = require('../core/request-context');
+import '../test/chai-setup.js';
+import EncryptionUtilities from '../encryption/encryption.js';
+import { expect } from 'chai';
+import Registration from './registration.js';
+import RequestContext from '../core/request-context.js';
 
 const context = new RequestContext('test', {});
 
@@ -198,6 +196,7 @@ describe('Registration', function () {
             try {
                 await Registration.decryptManySalts(context, obj, encryptionInfo);
             }
+            // eslint-disable-next-line no-unused-vars
             catch (error) {
                 // Suppress error (not the point of this test)
             }

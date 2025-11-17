@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2024 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -7,9 +6,9 @@
  * @description Manages caching for the output of encryption key derivation functions (such as PBKDF2).
  *              This is done to limit the need to recompute the output, which is time-consuming.
  */
-const { Keyv } = require('keyv');
-const crypto = require('crypto');
-const legacyLogger = require('../../listener/logs/logger');
+import crypto from 'crypto';
+import { Keyv } from 'keyv';
+import legacyLogger from '../../listener/logs/logger.js';
 
 // Parameters for PBKDF2
 const iterations = 25000;
@@ -125,4 +124,4 @@ class KeyDerivationCache {
 }
 
 // Singleton
-module.exports = new KeyDerivationCache();
+export default new KeyDerivationCache();

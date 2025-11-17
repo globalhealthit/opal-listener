@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -7,8 +6,8 @@
  * @file Manages the connection to a Firebase realtime database.
  */
 
-const admin = require('firebase-admin');
-const { param, Validator, ValidationChain } = require('../utility/param-validator');
+import { param, ValidationChain, Validator } from '../utility/param-validator.js';
+import admin from 'firebase-admin';
 
 class Firebase {
     /**
@@ -96,4 +95,4 @@ class Firebase {
     }
 }
 
-exports.Firebase = Firebase;
+export default Firebase;

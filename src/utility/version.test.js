@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -7,10 +6,9 @@
  * @file Unit tests for the Versions class.
  */
 
-require('../test/chai-setup');
-const { expect } = require('chai');
-
-const { Version } = require('./version');
+import '../test/chai-setup.js';
+import { expect } from 'chai';
+import Version from './version.js';
 
 describe('Version', function () {
     describe('compareVersions', function () {

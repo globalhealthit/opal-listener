@@ -1,13 +1,11 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-/* eslint-disable no-unused-vars */
 /**
  * @file unencrypted mock request
  */
-const CryptoJs = require('crypto-js');
+import CryptoJs from 'crypto-js';
 
 /**
  * Request for the new Django API
@@ -109,7 +107,7 @@ const requestData = {
     UserEmail: 'marge@opalmedapps.ca',
 };
 
-module.exports = {
+export default {
     requestRegistration,
     requestRegistrationApi,
     requestData,

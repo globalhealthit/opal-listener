@@ -1,13 +1,11 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-/* eslint-disable mocha/no-setup-in-describe */
-require('../test/chai-setup');
-const { expect } = require('chai');
-const ErrorHandler = require('./handler');
-const { ERRORS } = require('./const');
+import '../test/chai-setup.js';
+import ErrorHandler from './handler.js';
+import ERRORS from './const.js';
+import { expect } from 'chai';
 
 describe('Error handler', function () {
     describe('getErrorResponse()', function () {

@@ -22,7 +22,7 @@ jobs:
   lint-eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5.0.0
         with:
           persist-credentials: false
       - name: Install GitHub Actions formatter
@@ -30,12 +30,12 @@ jobs:
       - name: Print eslint version
         run: npx eslint --version
       - name: Run eslint
-        run: npx eslint --format gha src/**/*.js
+        run: npx eslint --format gha
 
   lint-pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5.0.0
         with:
           persist-credentials: false
       - uses: mschoettle/pre-commit-action@v4.2.3
@@ -49,7 +49,7 @@ jobs:
   check-thirdparty-notice:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5.0.0
         with:
           persist-credentials: false
       - uses: opalmedapps/actions/actions/check-thirdparty-notice@main
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Setup
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5.0.0
         with:
           persist-credentials: false
       - name: Install dependencies
@@ -69,14 +69,13 @@ jobs:
         run: npx mocha --version
 
       # Run coverage evaluation
-      - name: Run nyc / cobertura
+      - name: Run c8 / cobertura
         run: |
-          npx nyc --all --reporter cobertura mocha --reporter json --reporter-option output=mocha-report.json './src/**/*.test.*' './listener/**/*.test.*' './legacy-registration/**/*.test.*'
-          npx nyc report
+          npx c8 --all --reporter cobertura mocha --reporter json --reporter-option output=mocha-report.json './src/**/*.test.*' './listener/**/*.test.*' './legacy-registration/**/*.test.*'
 
       # Format the test output for GitHub
       - name: Report test results
-        uses: dorny/test-reporter@v2.1.0
+        uses: dorny/test-reporter@v2.1.1
         # Run this step even if the previous step failed
         if: ${{ !cancelled() }}
         with:

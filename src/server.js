@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -7,16 +6,21 @@
  * @file Entry point used to launch the listener.
  */
 
-require('dotenv').config();
+import 'dotenv/config';
 
-const {
-    ENVIRONMENT, ENVIRONMENT_DATABASE_SSL, ENVIRONMENT_SOURCE_SYSTEM_CHECKIN, ENVIRONMENT_ORMS, FIREBASE_CONFIG,
+import {
+    ENVIRONMENT,
+    ENVIRONMENT_DATABASE_SSL,
+    ENVIRONMENT_ORMS,
+    ENVIRONMENT_SOURCE_SYSTEM_CHECKIN,
+    FIREBASE_CONFIG,
     validateEnvironment,
-} = require('./environment');
-const { Firebase } = require('./firebase/firebase');
-const legacyLogger = require('../listener/logs/logger');
-const { REQUEST_TYPE } = require('./const');
-const { Version } = require('./utility/version');
+} from './environment.js';
+
+import Firebase from './firebase/firebase.js';
+import legacyLogger from '../listener/logs/logger.js';
+import { REQUEST_TYPE } from './const.js';
+import Version from './utility/version.js';
 
 // Validate environment before importing modules that use env variables on import
 // E.g., SQL Query Runner establishes the connection on import,
@@ -36,9 +40,11 @@ if (ENVIRONMENT.SOURCE_SYSTEM_SUPPORTS_CHECKIN) {
     validateEnvironment(ENVIRONMENT_SOURCE_SYSTEM_CHECKIN);
 }
 
-const legacyServer = require('../listener/legacy-server');
-const legacyRegistrationServer = require('../legacy-registration/legacy-server');
-const { RequestHandler } = require('./core/request-handler');
+/* eslint-disable import/first */
+// eslint-disable-next-line sort-imports
+import legacyRegistrationServer from '../legacy-registration/legacy-server.js';
+import legacyServer from '../listener/legacy-server.js';
+import RequestHandler from './core/request-handler.js';
 
 launch().then(() => {
     legacyLogger.log('info', 'LISTENER LAUNCHED SUCCESSFULLY');

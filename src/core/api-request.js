@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -6,9 +5,9 @@
 /**
  * @file relay request uploaded to firebase by the app to the Django backend.
  */
-const axios = require('axios');
-const { convert } = require('html-to-text');
-const legacyLogger = require('../../listener/logs/logger');
+import axios from 'axios';
+import { convert } from 'html-to-text';
+import legacyLogger from '../../listener/logs/logger.js';
 
 const configs = {
     BACKEND_HOST: process.env.BACKEND_HOST,
@@ -78,18 +77,18 @@ class ApiRequest {
         const errorData = !error.response ? null : ApiRequest.filterOutHTML(error.response.data);
         let opalError;
         switch (errorCode) {
-        case 404:
-            opalError = 'API_NOT_FOUND';
-            break;
-        case 403:
-            opalError = 'API_UNALLOWED';
-            break;
-        case 'ECONNREFUSED':
-            opalError = 'API_NOT_AVAILABLE';
-            break;
-        default:
-            opalError = 'DEFAULT_ERROR';
-            break;
+            case 404:
+                opalError = 'API_NOT_FOUND';
+                break;
+            case 403:
+                opalError = 'API_UNALLOWED';
+                break;
+            case 'ECONNREFUSED':
+                opalError = 'API_NOT_AVAILABLE';
+                break;
+            default:
+                opalError = 'DEFAULT_ERROR';
+                break;
         }
 
         throw new Error(opalError, { cause: errorData || errorCode });
@@ -104,14 +103,15 @@ class ApiRequest {
     static filterOutHTML(errorData) {
         return (typeof errorData === 'string' && errorData.indexOf('<!DOCTYPE') !== -1)
             ? convert(errorData, {
-                baseElements: {
-                    selectors: ['#summary'], // For brevity, only extract info from the summary tag (in Django response)
-                    orderBy: 'occurrence',
-                    returnDomByDefault: false,
-                },
-            }).split('\n').join(' ')
+                    baseElements: {
+                        // For brevity, only extract info from the summary tag (in Django response)
+                        selectors: ['#summary'],
+                        orderBy: 'occurrence',
+                        returnDomByDefault: false,
+                    },
+                }).split('\n').join(' ')
             : errorData;
     }
 }
 
-module.exports = ApiRequest;
+export default ApiRequest;

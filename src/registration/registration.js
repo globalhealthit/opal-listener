@@ -1,13 +1,12 @@
-// eslint-disable-next-line max-len
 // SPDX-FileCopyrightText: Copyright 2022 Opal Health Informatics Group at the Research Institute of the McGill University Health Centre <john.kildea@mcgill.ca>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-const { Keyv } = require('keyv');
-const ApiRequest = require('../core/api-request');
-const EncryptionUtilities = require('../encryption/encryption');
-const legacyLogger = require('../../listener/logs/logger');
-const { RequestContext } = require('../core/request-context');
+import ApiRequest from '../core/api-request.js';
+import EncryptionUtilities from '../encryption/encryption.js';
+import { Keyv } from 'keyv';
+import legacyLogger from '../../listener/logs/logger.js';
+import RequestContext from '../core/request-context.js';
 
 const regCache = new Keyv({ namespace: 'registration' });
 regCache.on('error', err => legacyLogger.log(
@@ -101,7 +100,6 @@ class Registration {
         );
         const decryptedRequest = result;
         // Save the salt that successfully decrypted the request (to be used to encrypt the response)
-        // eslint-disable-next-line no-param-reassign
         encryptionInfo.salt = salt;
 
         // Cache encryption info for the first time (once we know which salt was successful) or reset TTL
@@ -121,4 +119,4 @@ class Registration {
     }
 }
 
-module.exports = Registration;
+export default Registration;
