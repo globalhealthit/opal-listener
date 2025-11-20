@@ -82,7 +82,8 @@ async function launch() {
     legacyServer.spawnCronJobs();
 }
 
-const express = require('express');
+import express from 'express';
+//const express = require('express');
 const httpApp = express();
 
 httpApp.get('/', (_req, res) => {
